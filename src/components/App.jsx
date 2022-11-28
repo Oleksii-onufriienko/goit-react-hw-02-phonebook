@@ -6,6 +6,8 @@ import { FormPhoneBook } from "./FormPhoneBook/FormPhoneBook";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
 
+const KEY_PHONE_BOOK = "phone_book";
+
 export class App extends Component {
     state = {
       contacts: [
@@ -16,7 +18,20 @@ export class App extends Component {
      ],
      filter: '',
     }
+  
+  componentDidMount() {
+    const phoneBook = localStorage.getItem(KEY_PHONE_BOOK);
+    if (phoneBook) {
+      this.setState({...JSON.parse(phoneBook), filter: '' });
+    }
+  }
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevState.contacts.length !== this.state.contacts.length) {
+      localStorage.setItem(KEY_PHONE_BOOK,JSON.stringify(this.state));
+    }
+  }
+  
   handleSubmit = (value, {resetForm}) => {
     const { name, number } = value;
      const contact = {
