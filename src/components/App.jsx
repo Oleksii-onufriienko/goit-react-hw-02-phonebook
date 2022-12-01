@@ -5,8 +5,13 @@ import { nanoid } from 'nanoid'
 import { FormPhoneBook } from "./FormPhoneBook/FormPhoneBook";
 import { ContactList } from "./ContactList/ContactList";
 import { Filter } from "./Filter/Filter";
+import styled from 'styled-components';
 
 const KEY_PHONE_BOOK = "phone_book";
+
+const BoxApp = styled.div`
+  padding: 20px;
+`;
 
 export class App extends Component {
     state = {
@@ -74,13 +79,13 @@ export class App extends Component {
 
   render() {
     return (
-    <div>
+    <BoxApp>
       <h2>Phonebook</h2>
         <FormPhoneBook handleSubmit={this.handleSubmit} />
           <h2>Contacts</h2>
         <Filter value={this.state.filter} onChange={this.onChangeFilter}/>
         <ContactList listData={this.getVisibleContacts()} deleteContact={this.deleteContact} />
-    </div>
+    </BoxApp>
     );
 
 }
